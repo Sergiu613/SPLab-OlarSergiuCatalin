@@ -1,6 +1,6 @@
 package com.example.splab;
 
-public class TableOfContents implements Element {
+public class TableOfContents extends Element {
     private String something;
 
     public TableOfContents(String something) {

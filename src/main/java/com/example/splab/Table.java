@@ -1,6 +1,6 @@
 package com.example.splab;
 
-public class Table implements Element {
+public class Table extends Element {
     private String something;
 
     public Table(String something) {
