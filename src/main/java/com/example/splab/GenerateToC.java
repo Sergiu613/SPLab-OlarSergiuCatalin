@@ -1,0 +1,43 @@
+package com.example.splab;
+
+public class GenerateToC implements Visitor {
+    private TableOfContents toc = new TableOfContents();
+    private int currentPage = 1;
+
+    public TableOfContents getToC() {
+        return toc;
+    }
+
+    @Override
+    public void visit(Book book) {
+    }
+
+    @Override
+    public void visit(Section section) {
+        toc.addEntry(section.getTitle(), currentPage);
+    }
+
+    @Override
+    public void visit(TableOfContents tableOfContents) {
+    }
+
+    @Override
+    public void visit(Paragraph paragraph) {
+        currentPage++;
+    }
+
+    @Override
+    public void visit(ImageProxy imageProxy) {
+        currentPage++;
+    }
+
+    @Override
+    public void visit(Image image) {
+        currentPage++;
+    }
+
+    @Override
+    public void visit(Table table) {
+        currentPage++;
+    }
+}

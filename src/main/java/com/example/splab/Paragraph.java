@@ -2,15 +2,19 @@ package com.example.splab;
 
 public class Paragraph extends Element {
     private String text;
-    private AlignStrategy alignStrategy; // atributul pentru strategie[cite: 27]
+    private AlignStrategy alignStrategy;
 
     public Paragraph(String text) {
         this.text = text;
     }
 
-    // Setter-ul necesar pentru schimbarea strategiei la runtime[cite: 27]
     public void setAlignStrategy(AlignStrategy alignStrategy) {
         this.alignStrategy = alignStrategy;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 
     @Override

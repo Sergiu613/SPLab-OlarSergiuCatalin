@@ -1,15 +1,34 @@
 package com.example.splab;
 
-public class TableOfContents extends Element {
-    private String something;
+import java.util.ArrayList;
+import java.util.List;
 
-    public TableOfContents(String something) {
-        this.something = something;
+public class TableOfContents extends Element {
+    private List<String> entries = new ArrayList<>();
+
+    public TableOfContents() {
+    }
+
+    public void addEntry(String title, int page) {
+        entries.add(title + " .................... Pagina " + page);
+    }
+
+    public List<String> getEntries() {
+        return entries;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 
     @Override
     public void print() {
-        System.out.println("Table of Contents: " + something);
+        System.out.println(" Table of Contents ");
+        for (String entry : entries) {
+            System.out.println(entry);
+        }
+        System.out.println();
     }
 
     @Override
