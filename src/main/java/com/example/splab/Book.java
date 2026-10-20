@@ -1,9 +1,10 @@
 package com.example.splab;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Book extends Section {
-    private List<Author> authors = new ArrayList<>();
+    private final List<Author> authors = new ArrayList<>();
 
     public Book(String title) {
         super(title);
@@ -11,6 +12,18 @@ public class Book extends Section {
 
     public void addAuthor(Author author) {
         authors.add(author);
+    }
+
+    public void addContent(Element element) {
+        super.add(element);
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+        for (Element child : children) {
+            child.accept(visitor);
+        }
     }
 
     @Override
@@ -22,7 +35,6 @@ public class Book extends Section {
         }
         System.out.println();
 
-        // Apelul catre logica clasei parinte pentru a itera prin copii (punctul d)
         for (Element child : children) {
             child.print();
         }

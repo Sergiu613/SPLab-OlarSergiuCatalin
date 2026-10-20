@@ -1,4 +1,5 @@
 package com.example.splab;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,17 +11,24 @@ public class Section extends Element {
         this.title = title;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+        for (Element child : children) {
+            child.accept(visitor);
+        }
+    }
+
     @Override
     public void add(Element element) {
-        // Verificăm dacă elementul aparține deja altui părinte
         if (element.getParent() != null) {
             throw new IllegalArgumentException("Acest element apartine deja altei sectiuni!");
         }
-
-        // Dacă nu are părinte, setăm secțiunea curentă ca părinte
         element.setParent(this);
-
-        // Apoi îl adăugăm efectiv în listă
         children.add(element);
     }
 
