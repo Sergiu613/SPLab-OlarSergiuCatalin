@@ -1,9 +1,15 @@
 package com.example.splab;
 
+import jakarta.persistence.Entity;
 import java.util.concurrent.TimeUnit;
 
+@Entity
 public class Image extends Element {
     private String url;
+
+    // Constructor cerut de JPA
+    public Image() {
+    }
 
     public Image(String url) {
         this.url = url;
@@ -12,6 +18,10 @@ public class Image extends Element {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     @Override
