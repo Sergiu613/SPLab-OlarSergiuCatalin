@@ -1,9 +1,14 @@
 package com.example.splab;
 
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class TableOfContents extends Element {
+
+    @ElementCollection
     private List<String> entries = new ArrayList<>();
 
     public TableOfContents() {

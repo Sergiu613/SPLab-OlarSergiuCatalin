@@ -1,11 +1,22 @@
 package com.example.splab;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Section extends Element {
+
     protected String title;
+
+    @OneToMany(targetEntity = Element.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected List<Element> children = new ArrayList<>();
+
+    public Section() {
+    }
 
     public Section(String title) {
         this.title = title;
@@ -15,21 +26,14 @@ public class Section extends Element {
         return title;
     }
 
-    @Override
-    public void accept(Visitor visitor) {
-        visitor.visit(this);
-        for (Element child : children) {
-            child.accept(visitor);
-        }
+    public List<Element> getChildren() {
+        return children;
     }
 
     @Override
     public void add(Element element) {
-        if (element.getParent() != null) {
-            throw new IllegalArgumentException("Acest element apartine deja altei sectiuni!");
-        }
-        element.setParent(this);
         children.add(element);
+        element.setParent(this);
     }
 
     @Override
@@ -47,6 +51,14 @@ public class Section extends Element {
         System.out.println(title);
         for (Element child : children) {
             child.print();
+        }
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+        for (Element child : children) {
+            child.accept(visitor);
         }
     }
 }

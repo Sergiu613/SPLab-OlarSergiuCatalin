@@ -1,23 +1,31 @@
 package com.example.splab;
 
+import com.example.splab.persistence.BooksRepository;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import com.example.splab.difexample.*;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class SpLabApplication {
 
     public static void main(String[] args) {
-        ApplicationContext context = SpringApplication.run(SpLabApplication.class, args);
+        SpringApplication.run(SpLabApplication.class, args);
+    }
 
-        TransientComponent tc1 = context.getBean(TransientComponent.class);
-        TransientComponent tc2 = context.getBean(TransientComponent.class);
+    @Bean
+    public CommandLineRunner initDatabase(BooksRepository booksRepository) {
+        return args -> {
+            Book book = new Book("Amintiri din copilarie");
+            book.addAuthor(new Author("Ion", "Creanga"));
 
-        SingletonComponent sc1 = context.getBean(SingletonComponent.class);
-        SingletonComponent sc2 = context.getBean(SingletonComponent.class);
+            Section cap1 = new Section("Capitolul 1");
+            cap1.add(new Paragraph("Stau si-mi aduc aminte..."));
+            cap1.add(new ImageProxy("poza_humulesti.jpg"));
 
-        ClientComponent c = context.getBean(ClientComponent.class);
-        c.operation();
+            book.addContent(cap1);
+
+            booksRepository.save(book);
+        };
     }
 }
