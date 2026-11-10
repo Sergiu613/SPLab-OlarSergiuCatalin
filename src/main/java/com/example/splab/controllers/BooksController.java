@@ -1,6 +1,7 @@
 package com.example.splab.controllers;
 
 import com.example.splab.Book;
+import com.example.splab.observer.AllBooksSubject;
 import com.example.splab.persistence.CrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,12 @@ import java.util.List;
 public class BooksController {
 
     private final CrudRepository<Book, Long> booksRepository;
+    private final AllBooksSubject allBooksSubject;
 
     @Autowired
-    public BooksController(CrudRepository<Book, Long> booksRepository) {
+    public BooksController(CrudRepository<Book, Long> booksRepository, AllBooksSubject allBooksSubject) {
         this.booksRepository = booksRepository;
+        this.allBooksSubject = allBooksSubject;
     }
 
     @GetMapping
@@ -35,6 +38,7 @@ public class BooksController {
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody Book book) {
         Book savedBook = booksRepository.save(book);
+        allBooksSubject.add(savedBook); // Notifica toti observatorii conectati
         return new ResponseEntity<>(savedBook, HttpStatus.CREATED);
     }
 
