@@ -1,10 +1,10 @@
 package com.example.splab;
 
-import com.example.splab.persistence.BooksRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class SpLabApplication {
@@ -14,18 +14,12 @@ public class SpLabApplication {
     }
 
     @Bean
-    public CommandLineRunner initDatabase(BooksRepository booksRepository) {
-        return args -> {
-            Book book = new Book("Amintiri din copilarie");
-            book.addAuthor(new Author("Ion", "Creanga"));
-
-            Section cap1 = new Section("Capitolul 1");
-            cap1.add(new Paragraph("Stau si-mi aduc aminte..."));
-            cap1.add(new ImageProxy("poza_humulesti.jpg"));
-
-            book.addContent(cap1);
-
-            booksRepository.save(book);
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**");
+            }
         };
     }
 }
