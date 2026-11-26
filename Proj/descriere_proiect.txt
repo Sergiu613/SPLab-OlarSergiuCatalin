@@ -1,0 +1,10 @@
+PROIECT: DISTILERIE - MANAGER DE BAR SI COCKTAILURI
+
+Descriere:
+Aplicatie web pentru gestionarea meniurilor de cocktailuri ale unui bar.
+Pentru fiecare cocktail se salveaza reteta (pasi, poza, ingrediente, timp
+de preparare), iar aplicatia calculeaza costul, procentul de alcool si
+marja de profit.
+
+Bar -> Meniu -> Cocktail -> [Pas preparare, Poza, Ingredient (ml), Timp preparare (sec)]
+
